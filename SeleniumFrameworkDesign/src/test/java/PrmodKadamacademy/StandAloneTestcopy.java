@@ -2,6 +2,7 @@ package PrmodKadamacademy;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -28,16 +29,16 @@ public class StandAloneTestcopy extends BaseTest {
 	    
 	String name = "ZARA COAT 3";
 	String countryName= "india";
-		@Test (dataProvider ="getData",groups = {"purchase"})
-		public void finaltest(String email, String pass, String name) throws IOException, InterruptedException
+		@Test (groups = {"purchase"})
+		public void finaltest(HashMap<String,String> input) throws IOException, InterruptedException
 		{
 			
 		
-		ProductCatalogue pc= lp.loginapp(email, pass);
+		ProductCatalogue pc= lp.loginapp(input.get("email"), input.get("password"));
 		List<WebElement>list=pc.getproductlist();
-		pc.addProductToCart(name);
+		pc.addProductToCart(input.get("product name"));
 		Cartpage cp = pc.goTOCart(); // child class has access to the parent class methods
-		Boolean match = cp.toCheckAddedProducts(name);
+		Boolean match = cp.toCheckAddedProducts(input.get("product name"));
 		Assert.assertTrue(match); // validation should be in test cases not in action page
 		Checkoutpage check= cp.goToCheckout();
 		check.selectCountry(countryName);
@@ -61,10 +62,30 @@ public class StandAloneTestcopy extends BaseTest {
 		
 	
 		
-		@DataProvider 
+		// @DataProvider 
+		//public Object[][] getData()
+		// {
+		// 	return new Object[][] {{"pramodkdm@gmail.com", "Pkdm@4528","ZARA COAT 3" }, {"pramodabc@gmail.com","Pkdm@4528", "ADIDAS ORIGINAL"}};
+		// }
+		
+		// hashmap you can use this  for larger data
+		// it is easy to understand the data and less code required.
+		
 		public Object[][] getData()
 		{
-			return new Object[][] {{"pramodkdm@gmail.com", "Pkdm@4528","ZARA COAT 3" }, {"pramodabc@gmail.com","Pkdm@4528", "ADIDAS ORIGINAL"}};
+			HashMap<String,String> data = new HashMap<String,String>();
+			data.put("email", "pramodkdm@gmail.com");
+			data.put("password", "Pkdm@4528");
+			data.put("product name", "ZARA COAT 3");
+			
+			HashMap<String,String> data1 = new HashMap<String,String>();
+			data1.put("email", "pramodabc@gmail.com");
+			data1.put("password", "Pkdm@4528");
+			data1.put("product name", "ADIDAS ORIGINAL");
+			
+			return new Object[][] {{data}, {data1}};
+			
+			
 		}
 
 }
