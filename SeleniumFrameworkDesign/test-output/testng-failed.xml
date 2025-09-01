@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Error validation tests(failed)">
+    <classes>
+      <class name="PrmodKadamacademy.ErrorValidation">
+        <methods>
+          <include name="teardowm"/>
+          <include name="launchApp"/>
+          <include name="loginValidation"/>
+        </methods>
+      </class> <!-- PrmodKadamacademy.ErrorValidation -->
+    </classes>
+  </test> <!-- Error validation tests(failed) -->
   <test thread-count="5" name="Happy flow(failed)">
-    <groups>
-      <run>
-        <include name="purchase"/>
-      </run>
-    </groups>
     <classes>
       <class name="PrmodKadamacademy.StandAloneTestcopy">
         <methods>
+          <include name="OrderHistoryTest"/>
           <include name="finaltest"/>
           <include name="teardowm"/>
           <include name="launchApp"/>

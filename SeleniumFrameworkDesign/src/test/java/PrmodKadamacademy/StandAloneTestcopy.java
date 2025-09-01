@@ -1,6 +1,7 @@
 package PrmodKadamacademy;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +30,7 @@ public class StandAloneTestcopy extends BaseTest {
 	    
 	String name = "ZARA COAT 3";
 	String countryName= "india";
-		@Test (groups = {"purchase"})
+		@Test (dataProvider = "getData",groups = {"purchase"})
 		public void finaltest(HashMap<String,String> input) throws IOException, InterruptedException
 		{
 			
@@ -71,21 +72,27 @@ public class StandAloneTestcopy extends BaseTest {
 		// hashmap you can use this  for larger data
 		// it is easy to understand the data and less code required.
 		
-		public Object[][] getData()
+		// @DataProvider
+		// public Object[][] getData()
+		// {
+		//	HashMap<String,String> data = new HashMap<String,String>();
+		//	data.put("email", "pramodkdm@gmail.com");
+		//	data.put("password", "Pkdm@4528");
+		//	data.put("product name", "ZARA COAT 3");
+			
+		//	HashMap<String,String> data1 = new HashMap<String,String>();
+		//data1.put("email", "pramodabc@gmail.com");
+		//	data1.put("password", "Pkdm@4528");
+		//	data1.put("product name", "ADIDAS ORIGINAL");
+			
+		//	return new Object[][] {{data}, {data1}};
+			
+			
+		// to get the data from json file
+		@DataProvider
+		public Object[][] getData() throws IOException
 		{
-			HashMap<String,String> data = new HashMap<String,String>();
-			data.put("email", "pramodkdm@gmail.com");
-			data.put("password", "Pkdm@4528");
-			data.put("product name", "ZARA COAT 3");
-			
-			HashMap<String,String> data1 = new HashMap<String,String>();
-			data1.put("email", "pramodabc@gmail.com");
-			data1.put("password", "Pkdm@4528");
-			data1.put("product name", "ADIDAS ORIGINAL");
-			
-			return new Object[][] {{data}, {data1}};
-			
-			
-		}
-
+			List<HashMap<String, String>> data = getjsonDataToMap(System.getProperty("user.dir")+"\\src\\test\\java\\PramodKadamacademy\\data\\data.json");
+			return new Object[][] {{data.get(0)}, {data.get(1)}};
+}
 }
